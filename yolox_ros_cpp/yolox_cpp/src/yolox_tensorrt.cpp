@@ -66,11 +66,19 @@ namespace yolox_cpp
         CHECK(cudaMalloc(&this->inference_buffers_[this->inputIndex_], 3 * this->input_h_ * this->input_w_ * sizeof(float)));
         CHECK(cudaMalloc(&this->inference_buffers_[this->outputIndex_], this->output_size_ * sizeof(float)));
 
-        assert(this->context_->setInputShape(input_name, input_dims));
-        assert(this->context_->allInputDimensionsSpecified());
+        if (!this->context_->setInputShape(input_name, input_dims)) {
+            std::cerr << "Failed to set input shape" << std::endl;
+        }
+        if (!this->context_->allInputDimensionsSpecified()) {
+            std::cerr << "Not all input dimensions specified" << std::endl;
+        }
 
-        assert(this->context_->setTensorAddress(input_name, this->inference_buffers_[this->inputIndex_]));
-        assert(this->context_->setTensorAddress(output_name, this->inference_buffers_[this->outputIndex_]));
+        if (!this->context_->setTensorAddress(input_name, this->inference_buffers_[this->inputIndex_])) {
+            std::cerr << "Failed to set input tensor address" << std::endl;
+        }
+        if (!this->context_->setTensorAddress(output_name, this->inference_buffers_[this->outputIndex_])) {
+            std::cerr << "Failed to set output tensor address" << std::endl;
+        }
 
         // Prepare GridAndStrides
         if (this->p6_)
