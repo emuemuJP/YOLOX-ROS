@@ -111,7 +111,7 @@ namespace yolox_ros_cpp
 
         auto end = std::chrono::system_clock::now();
         auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - now);
-        RCLCPP_INFO(this->get_logger(), "Inference: %f FPS", 1000.0f / elapsed.count());
+        RCLCPP_DEBUG(this->get_logger(), "Inference: %f FPS", 1000.0f / elapsed.count());
 
         yolox_cpp::utils::draw_objects(frame, objects, this->class_names_);
         if (this->params_.imshow_isshow)

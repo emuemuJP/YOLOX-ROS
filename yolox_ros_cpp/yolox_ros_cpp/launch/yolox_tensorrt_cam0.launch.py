@@ -9,7 +9,7 @@ def generate_launch_description():
     launch_args = [
         DeclareLaunchArgument(
             'model_path',
-            default_value='/mnt/m2ssd/agv_humble_ws/autoware/src/YOLOX-ROS/weights/tensorrt/yolox_tiny.trt',
+            default_value='/mnt/m2ssd/agv_humble_ws/autoware/src/agv/YOLOX-ROS/weights/tensorrt/yolox_tiny.trt',
             description='yolox model path.'
         ),
         DeclareLaunchArgument(
